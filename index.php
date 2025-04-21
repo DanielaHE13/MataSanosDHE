@@ -1,23 +1,25 @@
-<?php 
-require ("logica/Especialidad.php");
+<?php
+require_once("logica/Especialidad.php");
+require_once("logica/Medico.php");
 ?>
 
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Matasanos EPS</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Matasanos EPS</title>
 
-<!-- Bootstrap -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+	<!-- Bootstrap -->
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+		rel="stylesheet">
 
-<!-- FontAwesome -->
-<link href="https://use.fontawesome.com/releases/v6.7.2/css/all.css"
-	rel="stylesheet">
+	<!-- FontAwesome -->
+	<link href="https://use.fontawesome.com/releases/v6.7.2/css/all.css"
+		rel="stylesheet">
 </head>
 
 <body class="bg-light">
@@ -44,7 +46,7 @@ require ("logica/Especialidad.php");
 				<a href="#" class="text-white text-decoration-none">Agendar citas</a>
 				<a href="#" class="text-white text-decoration-none">Mas información</a>
 				<a href="#" class="text-white text-decoration-none"><i
-					class="fas fa-user me-1"></i>Autenticar</a>
+						class="fas fa-user me-1"></i>Autenticar</a>
 			</div>
 		</div>
 	</nav>
@@ -102,32 +104,46 @@ require ("logica/Especialidad.php");
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row mt-3">
-			<div class="col">
-				<div class="card">
-					<div class="card-header"><h4>Especialidades</h4></div>
-					<div class="card-body">
-        				<?php 
-        				$especialidad = new Especialidad();
-        				$especialidades = $especialidad -> consultar();
-        				echo "<ul>";
-        				foreach($especialidades as $esp){
-        				    echo "<li>" . $esp -> getNombre();
-        				    // AQUI
-        				    
-        				    echo "</li>";
-        				}
-        				echo "</ul>";
-        				?>			
-    				</div>
-				</div>
-			</div>
-		</div>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h4>Especialidades</h4>
+            </div>
+            <div class="card-body">
+                <?php
+                $especialidad = new Especialidad();
+                $especialidades = $especialidad->consultar();
+                $medico = new Medico();
+
+                foreach ($especialidades as $esp) {
+                    echo "<h5>" . $esp->getNombre() . "</h5>";
+
+                    $medicos = $medico->consultarPorEspecialidad($esp->getId());
+
+                    if (count($medicos) > 0) {
+                        echo "<ul>";
+                        foreach ($medicos as $m) {
+                            echo "<li>" . $m->getNombre() . " " . $m->getApellido() . "</li>";
+                        }
+                        echo "</ul>";
+                    } /*else {
+                        echo "<p class='text-muted'><em>Sin médicos registrados</em></p>";
+                    }*/
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 	</div>
 
 
 
 </body>
-</html>
 
+</html>
