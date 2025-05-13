@@ -1,20 +1,24 @@
 <?php
-class Persona {
-    private $nombre;
-    private $apellido;
-    private $correo;
-    private $clave;
 
-    // Constructores
+abstract class Persona {
+    protected $id;
+    protected $nombre;
+    protected $apellido;
+    protected $correo;
+    protected $clave;
 
-    public function __construct($nombre="", $apellido="", $correo="", $clave="") {
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->correo = $correo;
-        $this->clave = $clave;
+    public function __construct($id = "", $nombre="", $apellido="", $correo="", $clave="") {
+        $this -> id = $id;
+        $this -> nombre = $nombre;
+        $this -> apellido = $apellido;
+        $this -> correo = $correo;
+        $this -> clave = $clave;
     }
 
-    // Getters
+    public function getId(){
+        return $this -> id;
+    }
+    
     public function getNombre() {
         return $this->nombre;
     }
@@ -31,7 +35,10 @@ class Persona {
         return $this->clave;
     }
 
-    // Setters
+    public function setId($id){
+        $this -> id = $id;
+    }
+    
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
