@@ -20,16 +20,17 @@ class MedicoDAO{
     }
 
     public function consultarPorEspecialidad($idEspecialidad){
-        return "select idMedico, nombre, apellido, correo
-                from Medico 
-                where Especialidad_idEspecialidad = $idEspecialidad
-                order by apellido asc";
-    }
+    return "SELECT idMedico, nombre, apellido, correo
+            FROM Medico 
+            WHERE Especialidad_id = $idEspecialidad
+            ORDER BY apellido ASC";
+}
+
     
     public function autenticar(){
         return "select idMedico
                 from Medico
-                where correo = '" . $this -> correo . "' and '" . md5($this -> clave) . "'";
+                where correo = '" . $this -> correo . "' and clave = '" . md5($this -> clave) . "'";
     }
     
     public function consultar(){

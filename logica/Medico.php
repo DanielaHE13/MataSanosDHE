@@ -21,7 +21,7 @@ class Medico extends Persona {
         $conexion = new Conexion();
         $medicoDAO = new MedicoDAO();
         $conexion -> abrir();
-        $conexion -> ejecutar($medicoDAO -> consultarPorEspecialidad($this -> especialidad -> getId()));
+        $conexion -> ejecutar($medicoDAO -> consultarPorEspecialidad($this->getEspecialidad()->getId()));
         $medicos = array();
         while (($datos = $conexion->registro()) != null) {
             $medico = new Medico(
